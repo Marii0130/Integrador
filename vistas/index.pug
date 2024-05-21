@@ -1,0 +1,22 @@
+html 
+    head 
+    style. 
+        .grilla {display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr};
+
+    SCript(src = "/js/script.js") 
+
+
+    body
+        h1 Productos fakes 
+        .grilla
+            each producto in productos 
+                .producto 
+                    h5= producto.title 
+                    p= producto.description
+                    img(src=producto.image,width="200px")
+                    if producto.descuento 
+                        h5= producto.price * (producto.descuento/100)
+                    else 
+                        h5= producto.price
+                    button Agregar
