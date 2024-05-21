@@ -75,3 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
     actualizarCarrito();
     actualizarContadorCarrito();
 });
+
+function agregarAlCarrito() {
+  contadorCarrito++;
+  document.getElementById('contador-carrito').textContent = contadorCarrito;
+  document.getElementById('contador-carrito').style.display = 'block';
+}
+
+function abrirCarrito() {
+    window.location.href = "/carrito"; // Redirigir al usuario al archivo Pug de la página del carrito
+  }
