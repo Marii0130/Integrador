@@ -4,7 +4,9 @@ const app = express();
 const traductor = require("node-google-translate-skidz")
 const fs = require("fs").promises;
 
-app.use(express.static("public"))
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 
 app.set("view engine", "pug");
 app.set("views", "./vistas");
@@ -32,21 +34,47 @@ app.get('/', async (req, res) => {
         let descuentos = await fs.readFile("descuentos.json", "utf8");
         descuentos = JSON.parse(descuentos);
         let desc;
+        let precios;
         for (const producto of productos) {
             desc = descuentos.filter(descuento => {
                 return descuento.id === producto.id
             })
             if (desc.length > 0) {
                 producto.descuento = desc[0].descuento;
+                producto.precioDescontado = producto.price * (desc[0].descuento / 100);
             }
         }
 
         res.render('index', { productos: productos })
-    }catch (error) {
-            console.error('Error:', error);
-            res.status(500).send('Ocurrió un error al procesar su solicitud.');
-        }
-    });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Ocurrió un error al procesar su solicitud.');
+    }
+});
+
+app.get('/carrito', (req, res) => {
+    res.render('carrito', { productos: [] })
+})
+
+app.post('/comprar', async (req, res) => {
+    try {
+        const compra = req.body
+        let compras = await fs.readFile("compras.json");
+        compras = JSON.parse(compras);
+        const ids = compras.map((compra) => {
+            return compra.id;
+        })
+        const id = Math.max(...ids) + 1;
+        compras.push({
+            id: id,
+            ...compra
+        })
+        await fs.writeFile('compras.json', JSON.stringify(compras, null, 2));
+        res.json({ error: false, message: "Su compra fue registrada" });
+    } catch (error) {
+        res.json({ error: true, message: error.message });
+    }
+})
 
 app.listen(3000, () => {
     console.log("servidor corriendo en el puerto 3000");

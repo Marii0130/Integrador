@@ -1,0 +1,13 @@
+[{"id":1, 
+"total":500, 
+"productos":[{
+    "id":5, 
+    "cantidad":4, 
+    "title": "Camisa", 
+    "price":100
+},{
+    "id":7, 
+    "cantidad":2, 
+    "title": "Pantalon", 
+    "price":50
+}]}]

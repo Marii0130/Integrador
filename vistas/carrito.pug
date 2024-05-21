@@ -1,0 +1,59 @@
+doctype html
+html
+  head
+    title Carrito de Compras
+    style 
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .grilla {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .producto {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .oferta {
+            position: absolute;
+            top: 10px;
+            left: -10px;
+            background: red;
+            color: white;
+            padding: 5px;
+            transform: rotate(-45deg);
+        }
+
+        .cart-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+  body
+    h1 Carrito de Compras
+    .carrito
+      if productos.length > 0
+        each producto in productos
+          .cart-item
+            h2= producto.title
+            p Cantidad: #{producto.cantidad}
+            p Precio: $ #{producto.price.toFixed(2)}
+            button(onclick=`removeFromCart(${producto.id})`) Eliminar
+      else
+        p No hay productos en el carrito.
+      button(onclick="comprar()") Comprar
+    script.
+      function removeFromCart(productId) {
+        // Lógica para eliminar del carrito
+      }
+
+      function comprar() {
+        // Lógica para realizar la compra
+      }
+    script(src="/js/carrito.js")
+    
