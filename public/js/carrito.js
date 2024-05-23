@@ -36,11 +36,12 @@ function renderizarCarrito() {
             nuevoElemento.innerHTML = `
             <div class=elementoRes>
             <p>${producto.titulo}</p>
-            <p>Cantidad: ${producto.cantidad}</p>
             <p>Precio: $ ${producto.precio}</p>
             <div class= botones>
-            <button class="btnRestar" data-id="${producto.id}">-</button>
+            <button class="btnRestar ${producto.cantidad === 1 ? 'disabled' : ''}" data-id="${producto.id}" ${producto.cantidad === 1 ? 'disabled' : ''}>-</button>
+            <span>Cantidad: ${producto.cantidad}</span>
             <button class="btnSumar" data-id="${producto.id}">+</button>
+            <br> <br>
             <button class="btnEliminar" data-id="${producto.id}"><i class="bi bi-trash3"></i> Eliminar</button>
             
             </div>
@@ -84,11 +85,8 @@ function sumarCantidad(productId) {
 
 function restarCantidad(productId) {
     const indiceProducto = carrito.findIndex(producto => producto.id === productId);
-    if (indiceProducto !== -1 && carrito[indiceProducto].cantidad > 0) {
+    if (indiceProducto !== -1 && carrito[indiceProducto].cantidad > 1) {
         carrito[indiceProducto].cantidad--;
-        if (carrito[indiceProducto].cantidad === 0) {
-            carrito.splice(indiceProducto, 1); // Elimina el producto del carrito si su cantidad es cero
-        }
         localStorage.setItem("carrito", JSON.stringify(carrito));
         actualizarAcumulador();
         renderizarCarrito();
@@ -104,27 +102,28 @@ function eliminarProducto(productId){
         actualizarAcumulador();
         renderizarCarrito();
        
-        console.log("Producto eliminado con éxito");
-  
-    
+        console.log("Producto eliminado con éxito");   
 }
-
 
 
 function enviarCompra() {
     const carritoCompra = carrito.map(producto => ({
         id: producto.id,
-        titulo: producto.titulo,
+        title: producto.titulo,
         cantidad: producto.cantidad,
-        precio: producto.precio
+        price: producto.precio
     }));
-    const compra=[{...carritoCompra, "Total":calcularPrecio(carrito)}]
+    const totalCompra = calcularPrecio(carrito);
+    const compra = {
+        total: totalCompra,
+        productos: carritoCompra
+    };
     fetch("/comprar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ carrito: compra })
+        body: JSON.stringify(compra)
     }).then(response => {
         if (!response.ok) {
             throw new Error('Error en la solicitud de compra');

@@ -60,18 +60,21 @@ app.get('/carrito', (req, res) => {
 
 app.post('/comprar', async (req, res) => {
     try {
-        const compra = req.body.carrito
+        const compra = req.body
         let compras = await fs.readFile("compras.json");
         compras = JSON.parse(compras);
+        console.log(compras)
         const ids = compras.map((compra) => {
             return compra.id;
         })
         const id = Math.max(...ids) + 1;
-        compras.push({
+        const nuevaCompra = {
             id: id,
-            ...compra
-        })
-        await fs.writeFile('compras.json', JSON.stringify(compras, null, 2));
+            total: compra.total,
+            productos: compra.productos
+        };
+        compras.push(nuevaCompra)
+        await fs.writeFile('compras.json', JSON.stringify(compras));
         res.json({ error: false, message: "Su compra fue registrada" });
         console.log(compras)
     } catch (error) {
