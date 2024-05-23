@@ -1,49 +1,8 @@
 doctype html
 html
   head 
-    style.
-      .grilla {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-      }
-      .producto {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin: 10px;
-      }
-      .btn-agregar {
-        display: block;
-        margin-top: 10px;
-      }
-      .oferta {
-        position: relative;
-        background: red;
-        color: white;
-        padding: 5px;
-        top: -10px;
-        left: -10px;
-        
-      }
-      .producto img {
-        max-width: 100%;
-        height: auto;
-        }
-        #carrito {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            cursor: pointer;
-        }
-        #carrito img{
-            background-image: url('img/carrito.png');
-            background-size: cover;
-            width: 35px;
-            height: 35px;
-            padding: 0;
-        }
-
-
-
+    title Tienda
+    link(rel='stylesheet' href='css/index.css')
   body
     nav
       h1 Tienda fake 
@@ -51,8 +10,6 @@ html
           a(href="carrito")
             img(src='img/carrito.png')
           span.acumulador.enlace 0
-
-        
     .grilla
       each producto in productos 
         .producto 
@@ -67,6 +24,7 @@ html
             p Descuento: #{producto.descuento}%
           else 
             h5.precio(data-precio=producto.price) Precio: $ #{producto.price.toFixed(2)}
-          button.boton-agregar(id=producto.id) Agregar
+          div 
+            button.boton-agregar(id=producto.id) Agregar
 script(src="/js/script.js" defer)
     
