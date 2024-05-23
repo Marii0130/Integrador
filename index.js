@@ -36,6 +36,7 @@ app.get('/', async (req, res) => {
         let descuentos = await fs.readFile("descuentos.json", "utf8");
         descuentos = JSON.parse(descuentos);
         let desc;
+        let precios;
         for (const producto of productos) {
             desc = descuentos.filter(descuento => {
                 return descuento.id === producto.id
