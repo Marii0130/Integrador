@@ -31,30 +31,42 @@ html
         #carrito {
             position: fixed;
             top: 20px;
-            right: 20px;
+            right: 30px;
             cursor: pointer;
         }
+        #carrito img{
+            background-image: url('img/carrito.png');
+            background-size: cover;
+            width: 35px;
+            height: 35px;
+            padding: 0;
+        }
 
-    script(src="/js/script.js")
-    script(src="/js/carrito.js")
+
 
   body
-    h1 Tienda fake 
-    #carrito
-        <button onclick="abrirCarrito()">Abrir Carrito</button>
+    nav
+      h1 Tienda fake 
+        #carrito
+          a(href="carrito")
+            img(src='img/carrito.png')
+          span.acumulador.enlace 0
+
+        
     .grilla
       each producto in productos 
         .producto 
           if producto.descuento
             .oferta Oferta
-          h5= producto.title 
+          h5.titulo-producto(data-title=producto.title)= producto.title 
           p= producto.description.substring(0, 30) + "..."
           img(src=producto.image)
           if producto.descuento 
-            h5 Precio con descuento: $ #{producto.precioDescontado.toFixed(2)}
+            h5.precio(data-precio=producto.precioDescontado) Precio con descuento: $ #{producto.precioDescontado.toFixed(2)}
             p Precio original: $ #{producto.price.toFixed(2)}
             p Descuento: #{producto.descuento}%
           else 
-            h5 Precio: $ #{producto.price.toFixed(2)}
-          button.btn-agregar(id=producto.id) Agregar
+            h5.precio(data-precio=producto.price) Precio: $ #{producto.price.toFixed(2)}
+          button.boton-agregar(id=producto.id) Agregar
+script(src="/js/script.js" defer)
     

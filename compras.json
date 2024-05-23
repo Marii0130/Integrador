@@ -1,13 +1,74 @@
-[{"id":1, 
-"total":500, 
-"productos":[{
-    "id":5, 
-    "cantidad":4, 
-    "title": "Camisa", 
-    "price":100
-},{
-    "id":7, 
-    "cantidad":2, 
-    "title": "Pantalon", 
-    "price":50
-}]}]
+[
+  {
+    "id": 1,
+    "total": 500,
+    "productos": [
+      {
+        "id": 5,
+        "cantidad": 4,
+        "title": "Camisa",
+        "price": 100
+      },
+      {
+        "id": 7,
+        "cantidad": 2,
+        "title": "Pantalon",
+        "price": 50
+      }
+    ]
+  },
+  {
+    "0": {
+      "0": {
+        "id": "4",
+        "titulo": "Corte ajustado informal para hombre",
+        "cantidad": 5,
+        "precio": 15.99
+      },
+      "1": {
+        "id": "3",
+        "titulo": "Chaqueta de algodón para hombre",
+        "cantidad": 3,
+        "precio": 8.3985
+      },
+      "2": {
+        "id": "2",
+        "titulo": "Camisetas ajustadas premium informales para hombre",
+        "cantidad": 2,
+        "precio": 5.575
+      },
+      "Total": "116.30"
+    },
+    "id": 2
+  },
+  {
+    "0": {
+      "0": {
+        "id": "6",
+        "titulo": "Micropavé pequeño de oro macizo",
+        "cantidad": 1,
+        "precio": 168
+      },
+      "Total": "168.00"
+    },
+    "id": 3
+  },
+  {
+    "0": {
+      "0": {
+        "id": "6",
+        "titulo": "Micropavé pequeño de oro macizo",
+        "cantidad": 2,
+        "precio": 168
+      },
+      "1": {
+        "id": "7",
+        "titulo": "Princesa chapada en oro blanco",
+        "cantidad": 1,
+        "precio": 9.99
+      },
+      "Total": "345.99"
+    },
+    "id": 4
+  }
+]

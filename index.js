@@ -3,10 +3,12 @@ const pug = require("pug");
 const app = express();
 const traductor = require("node-google-translate-skidz")
 const fs = require("fs").promises;
+const path = require('path');
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
+app.use(express.static(path.join(__dirname, "vistas")));
 
 app.set("view engine", "pug");
 app.set("views", "./vistas");
@@ -58,7 +60,7 @@ app.get('/carrito', (req, res) => {
 
 app.post('/comprar', async (req, res) => {
     try {
-        const compra = req.body
+        const compra = req.body.carrito
         let compras = await fs.readFile("compras.json");
         compras = JSON.parse(compras);
         const ids = compras.map((compra) => {
@@ -71,6 +73,7 @@ app.post('/comprar', async (req, res) => {
         })
         await fs.writeFile('compras.json', JSON.stringify(compras, null, 2));
         res.json({ error: false, message: "Su compra fue registrada" });
+        console.log(compras)
     } catch (error) {
         res.json({ error: true, message: error.message });
     }
